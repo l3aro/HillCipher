@@ -137,7 +137,7 @@ namespace HillCipher
         }
 
         // Remove characters not in Z26 alphabet
-        public string RemoveNonZ26(string raw)
+        private string RemoveNonZ26(string raw)
         {
             raw = raw.ToUpper();
             do
@@ -164,11 +164,53 @@ namespace HillCipher
         }
 
         // Encrypt data
-        //public string Encrypt(string plainText)
-        //{
-        //    plainText = plainText.ToUpper();
+        public string Encrypt(string plainText)
+        {
+            plainText = RemoveNonZ26(plainText);
 
+            if (plainText.Length % 2 != 0)
+            {
+                plainText += "Z";
+            }
 
-        //}
+            byte[] plainTextData = Encoding.ASCII.GetBytes(plainText);
+
+            for (int i = 0; i < plainText.Length; i += 2)
+            {
+                int result1 = (plainTextData[i] - 65) * key[0][0] + (plainTextData[i + 1] - 65) * key[0][1];
+                int result2 = (plainTextData[i] - 65) * key[1][0] + (plainTextData[i + 1] - 65) * key[1][1];
+                result1 = result1 % 26;
+                result2 = result2 % 26;
+                plainTextData[i] = (byte)(result1 + 65);
+                plainTextData[i + 1] = (byte)(result2 + 65);
+            }
+
+            return Encoding.ASCII.GetString(plainTextData);
+        }
+
+        // Decrypt data
+        public string Decrypt(string encrypted)
+        {
+            encrypted = RemoveNonZ26(encrypted);
+
+            if (encrypted.Length % 2 != 0)
+            {
+                encrypted += "Z";
+            }
+
+            byte[] encryptedData = Encoding.ASCII.GetBytes(encrypted);
+
+            for (int i = 0; i < encrypted.Length; i += 2)
+            {
+                int result1 = (encryptedData[i] - 65) * inverseOfKey[0][0] + (encryptedData[i + 1] - 65) * inverseOfKey[0][1];
+                int result2 = (encryptedData[i] - 65) * inverseOfKey[1][0] + (encryptedData[i + 1] - 65) * inverseOfKey[1][1];
+                result1 = result1 % 26;
+                result2 = result2 % 26;
+                encryptedData[i] = (byte)(result1 + 65);
+                encryptedData[i + 1] = (byte)(result2 + 65);
+            }
+
+            return Encoding.ASCII.GetString(encryptedData);
+        }
     }
 }

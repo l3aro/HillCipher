@@ -15,8 +15,11 @@ namespace HillCipher
             Console.Write("Nhap van ban can ma hoa: ");
             string plainText = Console.ReadLine();
 
-            plainText = HillCipher.RemoveNonZ26(plainText);
-            
+            string encrypted = HillCipher.Encrypt(plainText);
+            Console.WriteLine(encrypted);
+
+            string decrypted = HillCipher.Decrypt(encrypted);
+            Console.WriteLine(decrypted);
 
             Console.ReadKey();
         }
