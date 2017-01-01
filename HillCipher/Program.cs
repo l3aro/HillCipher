@@ -11,7 +11,12 @@ namespace HillCipher
         static void Main(string[] args)
         {
             HillCipher HillCipher = new HillCipher();
-            int inverse = HillCipher.MMI(5);
+
+            Console.Write("Nhap van ban can ma hoa: ");
+            string plainText = Console.ReadLine();
+
+            plainText = HillCipher.RemoveNonZ26(plainText);
+            
 
             Console.ReadKey();
         }
