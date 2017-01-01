@@ -10,6 +10,10 @@ namespace HillCipher
     {
         static void Main(string[] args)
         {
+            HillCipher HillCipher = new HillCipher();
+            int inverse = HillCipher.MMI(5);
+
+            Console.ReadKey();
         }
     }
 }
