@@ -26,9 +26,10 @@ namespace HillCipher
             setKey();
         }
 
+        // Set the key matrix to encrypt data
         private void setKey()
         {
-            Console.Write("Nhap key:\nBo trong neu muon he thong chon ngau nhien\nHoac nhap vao lan luot 4 so lon hon 0 va nho hon 26:\n");
+            Console.Write("Nhap vao lan luot 4 so lon hon 0 va nho hon 26 de tao thanh key:\n");
             do
             {
                 // import data from keyboard
@@ -88,7 +89,7 @@ namespace HillCipher
             inverseOfKey[1][0] = key[1][0] * (-1);
             inverseOfKey[1][1] = key[0][0];
 
-
+            // the inverse key equals multiplicative inverse of determinant multiply with adjugate matrix
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < 2; j++)
